@@ -1,0 +1,12 @@
+<resources>
+
+    <color name="darken_overlay">#66000000</color>
+    <color name="lighten_overlay">#66FFFFFF</color>
+    <color name="neutral_dark">#ff584E42</color>
+    <color name="neutral_light">#ffF1EBE4</color>
+    <color name="neutral_mid">#ffA5998B</color>
+    <color name="accent_dark">#ff394F58</color>
+    <color name="accent_mid">#ff8B9DA5</color>
+    <color name="accent_light">#ff47C7FF</color>
+
+</resources>

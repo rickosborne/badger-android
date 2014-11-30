@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Badger</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="title_activity_home">Badger</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_check_in_pain">Check In</string>
+    <string name="title_activity_account_settings">My Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_patient_list">Patients</string>
+    <string name="title_patient_detail">Patient Detail</string>
+    <string name="title_activity_patient_medications">Medications</string>
+
+</resources>
