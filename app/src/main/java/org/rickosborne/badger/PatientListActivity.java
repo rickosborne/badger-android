@@ -67,7 +67,11 @@ public class PatientListActivity extends Activity
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpFromSameTask(this);
+            // NavUtils.navigateUpFromSameTask(this);
+            ((BadgerApp) getApplication()).logout();
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            // NavUtils.navigateUpTo(this, new Intent(this, SignInActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

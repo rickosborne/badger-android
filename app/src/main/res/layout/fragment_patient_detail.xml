@@ -10,7 +10,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:background="@color/accent_dark"
         android:id="@+id/personContainer">
 
@@ -18,16 +18,28 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Barry Bloom"
+            android:text=""
             android:id="@+id/activeUserName"
             android:layout_weight="1"
             android:clickable="false"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:gravity="center_vertical"
             android:textColor="@color/accent_light"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlSymmetry"
+            android:gravity="bottom"
+            android:paddingBottom="2dp" />
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/activeUserEmail"
+        android:background="@color/accent_dark"
+        android:layout_gravity="top"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textColor="@color/lighten_overlay" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,7 +92,7 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listView"
+            android:id="@+id/checkInsList"
             />
     </ScrollView>
 

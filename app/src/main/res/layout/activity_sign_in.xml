@@ -69,20 +69,6 @@
                     android:id="@+id/textView"
                     android:layout_gravity="center_horizontal" />
 
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Doctor Sign-In"
-                    android:id="@+id/button"
-                    android:onClick="signInDoctor" />
-
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Patient Sign-In"
-                    android:id="@+id/button2"
-                    android:onClick="signInPatient" />
-
             </LinearLayout>
     </ScrollView>
 

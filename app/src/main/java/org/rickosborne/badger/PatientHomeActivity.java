@@ -2,6 +2,7 @@ package org.rickosborne.badger;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -17,6 +18,9 @@ import org.rickosborne.badger.data.User;
 
 
 public class PatientHomeActivity extends ActivityWithSVG {
+
+    Bitmap photo = null;
+    SVGImageView photoView = null;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +29,7 @@ public class PatientHomeActivity extends ActivityWithSVG {
         loadSvgResource(R.drawable.settings, R.id.cogContainer, R.dimen.icon_80);
         loadSvgResource(R.drawable.switchit, R.id.switchContainer, R.dimen.icon_80);
         loadSvgResource(R.drawable.pulse, R.id.pulseContainer, R.dimen.icon_80);
-        loadSvgResource(R.drawable.person, R.id.personContainer, R.dimen.icon_80);
+        photoView = loadSvgResource(R.drawable.person, R.id.personContainer, R.dimen.icon_80);
         loadSvgResource(R.drawable.pie, R.id.historyContainer, R.dimen.icon_120);
         loadSvgResource(R.drawable.pencil, R.id.checkInContainer, R.dimen.icon_120);
         BadgerApp app = (BadgerApp) getApplication();
@@ -52,6 +56,15 @@ public class PatientHomeActivity extends ActivityWithSVG {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if ((photo == null) && (photoView != null)) {
+            photo = ((BadgerApp) getApplication()).getPhoto(photoView.getWidth(), photoView.getHeight());
+            if (photo != null) photoView.setImageBitmap(photo);
+        }
     }
 
     public void startCheckIn(View v) {

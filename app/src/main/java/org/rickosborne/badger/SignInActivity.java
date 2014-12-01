@@ -274,7 +274,7 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor>{
                     if ((patients != null) && (patients.size() > 0)) signInDoctor(null);
                     else signInPatient(null);
                 }
-            });
+            }, SignInActivity.this);
             return true;
         }
 

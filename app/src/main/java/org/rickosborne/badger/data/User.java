@@ -78,6 +78,10 @@ public class User {
     @JsonIgnore public Set<User> getPatients() { return patients; }
     @JsonIgnore public Set<CheckIn> getCheckIns() { return checkIns; }
 
+    @JsonIgnore @Override public String toString() {
+        return getNameLast() + ", " + getNameFirst();
+    }
+
     @JsonIgnore public String toJSON() {
         try {
             return (new ObjectMapper()).writeValueAsString(this);

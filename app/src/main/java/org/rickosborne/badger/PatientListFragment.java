@@ -3,6 +3,7 @@ package org.rickosborne.badger;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.ListFragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,7 +14,10 @@ import android.widget.ListView;
 
 import com.caverock.androidsvg.SVGImageView;
 
-import org.rickosborne.badger.dummy.DummyContent;
+import org.rickosborne.badger.data.User;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * A list fragment representing a list of Patients. This fragment
@@ -70,7 +74,12 @@ public class PatientListFragment extends ListFragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public PatientListFragment() {
+        Log.d("PatientListFragment", "");
     }
+
+    private ArrayList<User> patientList;
+
+    private ArrayAdapter<User> adapter;
 
     protected void loadSvgResource(Activity activity, int resourceId, int containerId, int dimensionId) {
         LinearLayout container = (LinearLayout) activity.findViewById(containerId);
@@ -89,15 +98,32 @@ public class PatientListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+        patientList = new ArrayList<User>();
+        adapter = new ArrayAdapter<User>(
                 getActivity(),
-                //R.layout.patient_list_item,
-                // R.id.patient_list_item,
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));
+                R.layout.patient_list_item,
+                R.id.patientName,
+//                android.R.layout.simple_list_item_activated_1,
+//                android.R.id.text1,
+                patientList);
+
+        BadgerApp app = (BadgerApp) getActivity().getApplication();
+        app.getPatients(new BadgerApp.AfterGetPatients() {
+            @Override
+            public void complete(final Collection<User> patients) {
+                if (patients == null) return;
+                adapter.addAll(patients);
+            }
+        }, getActivity());
+
+//        mCallbacks = new Callbacks() {
+//            @Override
+//            public void onItemSelected(String id) {
+//                Log.d("PatientListFragment", "onItemSelected:" + id);
+//            }
+//        };
+
+        setListAdapter(adapter);
     }
 
     @Override
@@ -138,7 +164,7 @@ public class PatientListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(String.valueOf(patientList.get(position).getId()));
     }
 
     @Override

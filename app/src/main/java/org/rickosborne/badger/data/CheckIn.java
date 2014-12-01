@@ -1,9 +1,12 @@
 package org.rickosborne.badger.data;
 
+import android.text.format.DateFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 import java.util.List;
 
@@ -37,4 +40,12 @@ public class CheckIn {
     public void setMedications(List<CheckInMedication> medications) { this.medications = medications; }
     public List<CheckInMedication> getMedications() { return medications; }
 
+    @JsonIgnore public String toString() {
+        return String.format("%s, Pain: #%d, Eat: #%d @ #s",
+            DateFormat.format("EEE MMM dd @ HH:mm", getDateSubmitted()),
+            getPainScale(),
+            getConsumeScale(),
+            DateFormat.format("HH:mm", getDateLastConsumed())
+        );
+    }
 }

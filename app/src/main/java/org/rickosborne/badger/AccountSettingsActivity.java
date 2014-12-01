@@ -1,20 +1,31 @@
 package org.rickosborne.badger;
 
-import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import org.rickosborne.badger.data.User;
 
+import java.io.File;
+import java.io.IOException;
 
-public class AccountSettingsActivity extends Activity {
+
+public class AccountSettingsActivity extends ActivityWithSVG {
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
+        loadSvgResource(R.drawable.camera, R.id.photoChange, R.dimen.icon_120);
     }
 
     @Override
@@ -60,5 +71,33 @@ public class AccountSettingsActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void takePhoto(View v) {
+        Intent photoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        BadgerApp app = (BadgerApp) getApplication();
+        User currentUser = app.getUser();
+        if (currentUser == null) return;
+        if (photoIntent.resolveActivity(getPackageManager()) != null) {
+            try {
+                File photoFile = File.createTempFile(String.valueOf(Math.random()), ".jpg", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));
+//                photoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+//                photoIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(photoIntent, REQUEST_IMAGE_CAPTURE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if ((requestCode == REQUEST_IMAGE_CAPTURE) && (resultCode == RESULT_OK) && (data != null)) {
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                Bitmap imageBitmap = extras.getParcelable("data");
+                ((BadgerApp) getApplication()).savePhoto(imageBitmap);
+            }
+        }
     }
 }

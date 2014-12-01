@@ -152,7 +152,7 @@ public class SplashActivity extends Activity {
                     startActivity(new Intent(SplashActivity.this, ((patients != null) && (patients.size() > 0)) ? PatientListActivity.class : PatientHomeActivity.class));
                     finish();
                 }
-            });
+            }, this);
         }
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
